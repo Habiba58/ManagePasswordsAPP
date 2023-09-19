@@ -1,0 +1,84 @@
+<!--  -->
+<section class="mt-4 container">
+  <h2>Password Manager App </h2>
+  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id dolores culpa aut voluptatibus expedita consequuntur
+    sed quidem quasi sequi animi? Ea saepe tempore, dicta doloremque deleniti incidunt nesciunt ratione? Pariatur.</p>
+  <button class="btn btn-dark">Add New Site</button>
+  <div *ngIf="isVisible" class="alert alert-success mt-3" role="alert">
+    {{formMessage}}
+  </div>
+  <form [formGroup]="addSiteForm" class="add-new-site mt-3" (ngSubmit)="genralSubmit()">
+    <div class="form-header text-center mt-3 px-5">
+      <h5>{{formState}} Site</h5>
+      <p>You can {{formState}} Site form the below form</p>
+    </div>
+    <div class="form-body mx-5">
+      <div>
+        <label for="siteName" class="ps-2">Site Name:</label>
+        <input type="text" id="siteName" formControlName="siteName" #sitename class="input form-control m-2 "
+          name="siteName" [ngClass]="{'is-invalid':siteName?.invalid,'is-valid':siteName?.valid}">
+      </div>
+      <div class="alert alert-danger" [hidden]="siteName?.valid || siteName?.untouched">
+        <small *ngIf="siteName?.errors?.['required']">Site Name is required</small>
+        <small *ngIf="siteName?.errors?.['pattern']">Site Name must include 3 (letters,digits) at
+          least and must include <b>.com</b>,<b>{{siteName?.errors?.['pattern'].actualValue}}</b> doesn't match
+          pattern</small>
+      </div>
+      <div>
+        <label for="siteURL" class="ps-2 ">Site URL:</label>
+        <input type="text" id="siteURL" formControlName="siteURL" #siteurl class="input form-control m-2" name="siteURL"
+          [ngClass]="{'is-invalid':siteURL?.invalid,'is-valid':siteURL?.valid}">
+      </div>
+      <div class="alert alert-danger" [hidden]="siteURL?.valid || siteURL?.untouched">
+        <small *ngIf="siteURL?.errors?.['required']">Site URL is required</small>
+        <small *ngIf="siteURL?.errors?.['pattern']">Site URL must include 3 (letters,digits) at
+          least and must start with <b>https://</b>, <b>{{siteURL?.errors?.['pattern'].actualValue}}</b> doesn't match
+          the required pattern</small>
+      </div>
+      <div>
+        <label for="siteImageURL" class="ps-2">Site ImageURL:</label>
+        <input type="text" id="siteImageURL" formControlName="siteImageURL" #siteimgURL class="input form-control m-2"
+          name="siteImageURL" [ngClass]="{'is-invalid':siteImageURL?.invalid,'is-valid':siteImageURL?.valid}">
+      </div>
+      <div class="alert alert-danger" [hidden]="siteImageURL?.valid || siteImageURL?.untouched">
+        <small *ngIf="siteImageURL?.errors?.['required']">Site Image URL is required</small>
+        <small *ngIf="siteImageURL?.errors?.['pattern']">Site Image URL must include 3 (letters,digits) at
+          least and must start with <b>https://</b>, <b>{{siteImageURL?.errors?.['pattern'].actualValue}}</b> doesn't
+          match
+          the required pattern</small>
+      </div>
+    </div>
+    <div class="form-buttons ps-5 my-3">
+      <button [disabled]="addSiteForm.invalid" type="submit" class="btn btn-dark">{{formState}} Site</button>
+      <button class="btn btn-outline-dark m-2">Cancel</button>
+    </div>
+  </form>
+  <div class="site-list mt-5">
+    <div class="container mb-5">
+      <div class="row">
+        <div *ngFor="let site of sites; index as i" class="col-md-3 mb-3 site-holder">
+          <div class="site-card shadow-lg">
+            <img [src]="site.siteImageURL" alt="" class="w-100">
+            <h6 class="p-2 main-card">{{site.siteName}}</h6>
+            <div class="row">
+              <div class="col-8">
+                <div class="link-holder rounded shadow mx-1">{{site.siteURL}}</div>
+              </div>
+              <div class="col">
+                <div class="passNumber-holder rounded shadow me-1">
+                   
+                </div>
+              </div>
+            </div>
+            <div class="my-4 card-btns ps-1">
+              <button class="card-btns btn btn-dark"(click)="addNewPass(site.id)">Add New Password</button>
+              <button class="card-btns btn btn-outline-dark mx-1" (click)="editSite(site.id)">Edit</button>
+              <button class="card-btns btn btn-outline-dark" (click)="deleteSite(site.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

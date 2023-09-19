@@ -1,0 +1,33 @@
+.add-new-site {
+  border: 2px solid black;
+}
+
+.input {
+  border: 2px solid black;
+}
+
+.btn {
+  font-size: 13px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.site-card {
+  border: 1px solid black;
+}
+
+.link-holder {
+  background-color: rgb(162, 205, 211);
+  font-size: small;
+  color: blue;
+}
+
+.main-card {
+  font-weight: bold;
+}
+
+.card-btns {
+  font-size: 11px;
+}/*# sourceMappingURL=site-list.component.css.map */
